@@ -1,0 +1,201 @@
+### What is **Scope** in Python?
+
+**Scope** means **where** in your code a variable or name can be accessed or used.
+
+Think of it like different rooms in a house:
+
+* Some toys (variables) are only in the bedroom.
+* Some toys are in the living room.
+* You can only play with toys if you are in the same room.
+
+---
+
+### Types of Scopes in Python
+
+1. **Local Scope**
+
+   * Variables created **inside a function**.
+   * They live only **inside that function**.
+   * You cannot use them outside the function.
+
+2. **Global Scope**
+
+   * Variables created **outside all functions**.
+   * They can be used **anywhere** in the code, including inside functions (unless overwritten).
+
+3. **Enclosing Scope** (for nested functions)
+
+   * If you have a function inside another function, the inner function can use variables from the outer function.
+
+4. **Built-in Scope**
+
+   * Python’s built-in names like `print()`, `len()`, etc.
+   * These are always available.
+
+---
+
+### Example to understand Local and Global Scopes:
+
+```python
+x = 10  # Global variable
+
+def my_function():
+    y = 5  # Local variable
+    print("Inside function, x =", x)  # Can access global x
+    print("Inside function, y =", y)  # Can access local y
+
+my_function()
+
+print("Outside function, x =", x)  # Can access global x
+print("Outside function, y =", y)  # Error! y does not exist here
+```
+
+Output:
+
+```
+Inside function, x = 10
+Inside function, y = 5
+Outside function, x = 10
+NameError: name 'y' is not defined
+```
+
+---
+
+### Quick summary:
+
+| Scope Type | Where Variable is Created         | Where It Can Be Used       |
+| ---------- | --------------------------------- | -------------------------- |
+| Local      | Inside a function                 | Only inside that function  |
+| Global     | Outside all functions             | Anywhere in the file       |
+| Enclosing  | Outer function of nested function | Inner nested function only |
+| Built-in   | Python built-in names             | Anywhere                   |
+
+
+
+
+---
+
+### Exercise 1: Local vs Global
+
+```python
+a = 5  # Global variable
+
+def test():
+    a = 10  # Local variable inside function
+    print("Inside function:", a)
+
+test()
+print("Outside function:", a)
+```
+
+**Output:**
+
+```
+Inside function: 10
+Outside function: 5
+```
+
+**Explanation:**
+Inside the function, `a` is a **local** variable (10). Outside, `a` is the global variable (5). They are two different variables.
+
+---
+
+### Exercise 2: Accessing Global Inside Function
+
+```python
+b = 3  # Global variable
+
+def show():
+    print("Value of b inside function:", b)
+
+show()
+print("Value of b outside function:", b)
+```
+
+**Output:**
+
+```
+Value of b inside function: 3
+Value of b outside function: 3
+```
+
+**Explanation:**
+Inside the function, Python uses the global `b` because there is no local `b`.
+
+---
+
+### Exercise 3: Changing Global Inside Function (without `global` keyword)
+
+```python
+c = 7  # Global variable
+
+def change():
+    c = 20  # Local variable, shadows global c
+    print("Inside function:", c)
+
+change()
+print("Outside function:", c)
+```
+
+**Output:**
+
+```
+Inside function: 20
+Outside function: 7
+```
+
+**Explanation:**
+Inside the function, `c` is local and shadows the global `c`. The global `c` is unchanged outside.
+
+---
+
+### Exercise 4: Changing Global with `global` keyword
+
+```python
+d = 2  # Global variable
+
+def change_global():
+    global d
+    d = 50
+    print("Inside function:", d)
+
+change_global()
+print("Outside function:", d)
+```
+
+**Output:**
+
+```
+Inside function: 50
+Outside function: 50
+```
+
+**Explanation:**
+The `global` keyword tells Python to use the global variable `d`. So, changing it inside the function affects the global `d`.
+
+---
+
+### Exercise 5: Nested Functions and Enclosing Scope
+
+```python
+def outer():
+    e = 100
+
+    def inner():
+        print("Inside inner:", e)
+
+    inner()
+
+outer()
+```
+
+**Output:**
+
+```
+Inside inner: 100
+```
+
+**Explanation:**
+The inner function can access the variable `e` from its **enclosing** function `outer`.
+
+
