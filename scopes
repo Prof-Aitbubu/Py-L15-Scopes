@@ -198,4 +198,119 @@ Inside inner: 100
 **Explanation:**
 The inner function can access the variable `e` from its **enclosing** function `outer`.
 
+ Understanding when and how often you’ll use **Python scopes** as a Django developer or a DevOps engineer is very practical.
+
+---
+
+### As a **Django Developer**
+
+* **Daily use:**
+  You *constantly* deal with scopes because your code involves many functions, classes, views, models, and nested logic.
+  Examples:
+
+  * Writing views and functions with local variables.
+  * Using global constants or settings (like Django `settings.py` variables).
+  * Nested functions or closures (less common but useful sometimes).
+  * Managing variable scopes to avoid bugs (e.g., not accidentally overwriting global variables).
+
+* **Why important?**
+  If you don’t understand scopes well, you might:
+
+  * Accidentally overwrite variables.
+  * Have hard-to-find bugs because of variable shadowing.
+  * Fail to manage state properly in views or forms.
+
+---
+
+### As a **DevOps Engineer**
+
+* **Occasional but important use:**
+  DevOps often involves writing Python scripts for automation, monitoring, or infrastructure management.
+  Examples:
+
+  * Writing scripts/functions for deployment, backups, or log parsing.
+  * Using global config variables for environment settings.
+  * Organizing code into reusable functions and modules where local/global scopes matter.
+
+* **Why important?**
+
+  * Helps you write clean, maintainable automation scripts.
+  * Avoids bugs caused by variable misuse in complex scripts.
+  * Keeps your scripts modular and easier to troubleshoot.
+
+---
+
+### Summary
+
+| Role             | How often scopes matter     | Why important                                  |
+| ---------------- | --------------------------- | ---------------------------------------------- |
+| Django Developer | Daily, all the time         | Manage variables in views, models, forms, etc. |
+| DevOps Engineer  | Often in automation scripts | Organize reusable scripts and avoid bugs       |
+
+---
+
+ Let me show you simple examples for **Django** and **DevOps** where scopes matter.
+
+---
+
+### 1) Django Example — Using Local and Global Scope in a View
+
+```python
+# global setting for discount
+DISCOUNT_RATE = 0.1  # 10% discount
+
+def calculate_price(price):
+    discount = price * DISCOUNT_RATE  # uses global DISCOUNT_RATE
+    final_price = price - discount  # local variable
+    return final_price
+
+def product_view(request):
+    product_price = 100  # local variable inside view
+    price_after_discount = calculate_price(product_price)
+    return f"Price after discount is {price_after_discount}"
+```
+
+**What’s happening?**
+
+* `DISCOUNT_RATE` is global, used inside function `calculate_price`.
+* Variables like `discount`, `final_price`, and `product_price` are local to their functions.
+* Keeping `DISCOUNT_RATE` global means you can change discount easily in one place.
+
+---
+
+### 2) DevOps Example — Using Global and Local Variables in a Script
+
+```python
+# Global variable: config for server address
+SERVER = "192.168.1.10"
+
+def deploy_app():
+    print(f"Deploying app to server {SERVER}")
+    logs = "/var/logs/deploy.log"  # local variable
+    # simulate deployment steps here
+    print(f"Logging deployment details to {logs}")
+
+def main():
+    deploy_app()
+
+main()
+```
+
+**What’s happening?**
+
+* `SERVER` is global and shared across functions.
+* `logs` is local to `deploy_app` and won’t affect anything outside.
+* This separation helps keep config variables global but temporary data local.
+
+---
+
+### Why is scope important here?
+
+* If you accidentally create a **local variable named SERVER** inside `deploy_app`, it would hide the global one and may break your deployment.
+* If you need to change global variables inside functions, you must use the `global` keyword carefully.
+* Using local variables helps keep your functions independent and easier to test.
+
+---
+
+
 
