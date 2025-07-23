@@ -1,0 +1,172 @@
+# ✅ Task1:  Print a global variable inside a function.
+
+# name = 'Aitbubu'
+#
+# def who(name):
+#     print(name)
+#
+# who(name)
+
+# another solution:
+
+name = 'Aitbubu'
+
+def who():
+    print(name)  # accesses the global variable 'name'
+
+who()
+
+
+# ✅Task2: Create a local variable inside a function and try to print it outside the function (should cause an error).
+
+# def student():
+#     name = 'Aitbubu'  # local variable
+#
+# student()
+# print(name)  # ❌ This will raise an error: name is not defined
+
+#correct solution:
+
+def ms_student():
+    id = 1234  # local variable
+    print(id)
+
+ms_student()
+
+
+# ✅ If you want to pass an ID as a parameter:
+def ms_student(id):
+    print(id)
+
+ms_student(1234)
+
+
+#✅ Task3: Create a global variable and update its value inside a function using the global keyword.
+
+teacher = 'Prof. Aitbubu'
+
+def staff():
+    global teacher
+    teacher = 'Dr. Aitbubu'  # Update global variable
+    print("Inside function:", teacher)
+
+staff()
+print("Outside function:", teacher)
+
+# ✅ Task4: # Write a function with a local variable that has the same name as a global variable. Print both inside and outside the function.
+
+
+visa = "Student visa"  # Global variable
+
+def study():
+    visa = "Tourist visa"  # Local variable (same name)
+    print(f"Inside the function: {visa}")
+
+study()
+print(f"Outside the function: {visa}")
+
+# ✅ Task5: # Write a nested function (a function inside a function) and access a variable from the outer function inside the inner function.
+
+def ma_degree():
+    degree = 'MAT - AUCA'
+    print(f"Outer function (ma_degree): {degree}")
+
+    def ms_degree():
+        # Accessing 'degree' from outer function
+        print(f"Inner function (ms_degree): {degree} helped me to get my MS in AI & CS at the University of Birmingham")
+
+    ms_degree()  # Call the inner function
+
+ma_degree()
+
+# ✅ Task6: # Create two functions: one sets a global variable, another prints it. Call them in order.
+
+def set_family_status():
+    global family
+    family = "Married"  # Set global variable
+
+def print_family_status():
+    print(f"Family status: {family}")
+
+# Call them in order
+set_family_status()
+print_family_status()
+
+
+# ✅ Task7: # Write a function that creates a local variable and returns it. Outside the function, try to print the variable directly (should cause an error).
+
+def local_example():
+    secret = "This is a local variable"
+    return secret  # optional return
+
+local_example()  # This works fine
+
+print(secret)  # ❌ This will cause an error: NameError
+
+
+# ✅ Task8:  # Use the nonlocal keyword inside a nested function to modify a variable from the outer function.
+
+def level():
+    first = 'beginner'  # Now it's in the outer function
+    print(f"Before level2: {first}")
+
+    def level2():
+        nonlocal first  # Refer to the 'first' variable from level()
+        first = 'absolute beginner'
+        print(f"Inside level2: {first}")
+
+    level2()
+    print(f"After level2: {first}")
+
+level()
+
+#✅ Task9:  # Create a function that takes a global list and appends an element to it. Print the list before and after calling the function.
+
+nums = [1, 2, 3, 4, 5, 6, 7]
+
+def digits():
+    nums.append(10)  # Append to the global list
+    print(f"Inside function (after append): {nums}")
+
+print(f"Before function call: {nums}")
+digits()
+print(f"After function call: {nums}")
+
+
+#✅ Task10: # Write a function that tries to change a global string variable without using the global keyword. Observe what happens.
+
+prof = 'Aitbubu'
+
+def status():
+    prof = 'Aruuke'
+    print(prof)
+
+status()
+
+# 🧠 To actually change the global variable, you must use the global keyword:
+prof = 'Aitbubu'
+
+def status():
+    global prof
+    prof = 'Aruuke'
+    print(f"Inside function: {prof}")
+
+status()
+print(f"Outside function: {prof}")
+
+
+#✅ Task11: # Create a global constant (e.g., PI = 3.14) and use it inside multiple functions without passing it as a parameter.
+
+PI = 3.14  # Global constant
+
+def calculate():
+    print(f"Inside calculate(): PI = {PI}")
+
+def solve():
+    print(f"Inside solve(): PI = {PI}")
+
+# Call both functions
+calculate()
+solve()
+
+
